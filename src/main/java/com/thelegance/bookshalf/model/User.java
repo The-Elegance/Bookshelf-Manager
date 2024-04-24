@@ -1,4 +1,4 @@
-package com.thelegance.bookshalf.models;
+package com.thelegance.bookshalf.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,54 +8,49 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "users", schema = "public")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
-    String nickname;
+    String username;
     String firstName;
     String lastName;
+    String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of();
     }
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return password;
     }
 
-    @Override
-    public String getUsername() {
-        return nickname;
-    }
-
-    @Override
     public boolean isAccountNonExpired() {
         return false;
     }
 
-    @Override
     public boolean isAccountNonLocked() {
         return false;
     }
 
-    @Override
     public boolean isCredentialsNonExpired() {
         return false;
     }
 
-    @Override
     public boolean isEnabled() {
         return false;
     }

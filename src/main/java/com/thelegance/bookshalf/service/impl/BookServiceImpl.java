@@ -3,12 +3,10 @@ package com.thelegance.bookshalf.service.impl;
 import com.thelegance.bookshalf.model.Book;
 import com.thelegance.bookshalf.repository.BookRepository;
 import com.thelegance.bookshalf.service.BookService;
-import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -17,7 +15,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllBooks() {
-        return (List<Book>) repository.findAll();
+        var b  = repository.findAll();
+
+        return b ;
     }
 
     @Override
@@ -31,3 +31,4 @@ public class BookServiceImpl implements BookService {
         repository.save(book);
     }
 }
+

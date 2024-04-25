@@ -1,6 +1,7 @@
 package com.thelegance.bookshalf.service;
 
 import com.thelegance.bookshalf.model.Book;
+import com.thelegance.bookshalf.model.Grade;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,3 +11,5 @@ public interface BookService {
     Book getById(Long id);
     void add(Book book);
 }
+
+

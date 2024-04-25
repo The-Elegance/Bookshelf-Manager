@@ -6,10 +6,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -24,10 +21,16 @@ public class User implements UserDetails {
     String lastName;
     String password;
 
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     Set<Role> roles = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = false)
+    private Set<Grade> grades = new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

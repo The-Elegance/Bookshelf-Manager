@@ -10,6 +10,8 @@ public interface BookService {
     List<Book> getAllBooks();
     Book getById(Long id);
     void add(Book book);
+    void update(Long id, Book book);
+    void delete(Long id);
 }
 
 

@@ -15,9 +15,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllBooks() {
-        var b  = repository.findAll();
-
-        return b ;
+        return repository.findAll();
     }
 
     @Override
@@ -29,6 +27,17 @@ public class BookServiceImpl implements BookService {
     @Override
     public void add(Book book) {
         repository.save(book);
+    }
+
+    @Override
+    public void update(Long id, Book book) {
+        book.setId(id);
+        repository.save(book);
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 }
 

@@ -29,8 +29,13 @@ public class User implements UserDetails {
 
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = false)
-    private Set<Grade> grades = new HashSet<>();
+    Set<Grade> grades = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    Set<Book> ReadBooks = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    Set<Book> desiredBooks = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

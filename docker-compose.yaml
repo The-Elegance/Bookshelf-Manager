@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - java-project-db:/var/lib/postgresql/data
       - java-project-db:/docker-entrypoint-initdb.d/create_tables.sql

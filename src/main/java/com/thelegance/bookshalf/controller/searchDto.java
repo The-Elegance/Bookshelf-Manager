@@ -1,6 +1,5 @@
 package com.thelegance.bookshalf.controller;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookDto{
-    String name;
-    String description;
-    String author;
+public class searchDto{
+    public String author;
+    public String bookName;
+    public TypeOrder order;
 }

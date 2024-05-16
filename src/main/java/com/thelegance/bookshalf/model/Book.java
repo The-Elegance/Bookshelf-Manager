@@ -23,8 +23,13 @@ public class Book {
     String description;
     String author;
 
+    public Book(String name, String description, String author) {
+        this.name = name;
+        this.description = description;
+        this.author = author;
+    }
+
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, orphanRemoval = false)
     private Set<Grade> grades = new HashSet<>();
-
 }

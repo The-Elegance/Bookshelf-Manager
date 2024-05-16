@@ -28,12 +28,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/registration", "/login", "/logout").permitAll()
-                        .requestMatchers("/delete/**").hasRole("DEFAULT")
-                        .requestMatchers("/create/**").hasAuthority("DEFAULT")
-                        .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
-            .csrf(AbstractHttpConfigurer::disable);
+                        .requestMatchers("/registration", "/login", "/logout", "/**").permitAll()
+                        .requestMatchers("/delete/**").hasRole("ADMIN")
+                        .requestMatchers("/create/**").hasAuthority("ADMIN")
+                        .anyRequest().authenticated());
         return http.build();
     }
 }

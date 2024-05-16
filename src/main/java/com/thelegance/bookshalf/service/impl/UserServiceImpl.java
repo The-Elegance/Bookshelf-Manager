@@ -3,8 +3,13 @@ package com.thelegance.bookshalf.service.impl;
 import com.thelegance.bookshalf.model.Role;
 import com.thelegance.bookshalf.model.User;
 import com.thelegance.bookshalf.repository.UserRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,9 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.security.Key;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,3 +56,4 @@ public class UserServiceImpl implements UserDetailsService {
                 r.name())).collect(Collectors.toList());
     }
 }
+

@@ -27,11 +27,11 @@ public class Grade {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user.id")
-    public User user;
+    private User user;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book.id")
-    public Book book;
+    private Book book;
 
 }

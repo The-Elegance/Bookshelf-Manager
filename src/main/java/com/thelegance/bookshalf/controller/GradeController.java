@@ -6,11 +6,14 @@ import dto.BookDto;
 import dto.GradeDto;
 import dto.GradeResponse;
 import dto.UserDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+
+@SecurityRequirement(name = "JWT")
 public class GradeController {
 
     final

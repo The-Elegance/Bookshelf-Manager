@@ -6,6 +6,7 @@ import dto.BookDto;
 import dto.BookResponse;
 import dto.TypeOrder;
 import dto.SearchDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+
+@SecurityRequirement(name = "JWT")
 public class BookController {
     final BookService bookService;
 

@@ -1,14 +1,22 @@
 package com.thelegance.bookshalf.service;
 
+import dto.searchDto;
 import com.thelegance.bookshalf.model.Book;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookService {
-    List<Book> getAllBooks();
+    List<Book> getAllBooks(searchDto dto);
     Book getById(Long id);
     void add(Book book);
     void update(Long id, Book book);
     void delete(Long id);
+
+    List<Book> readBookBy(Long bookId, Long userId);
+    List<Book> DeleteBookFromReadBy(Long bookId, Long userId);
+
+    List<Book> addBookToWishlist(Long bookId, Long userId);
+    List<Book> deleteBookFromWishlist(Long bookId, Long userId);
 }
+
+

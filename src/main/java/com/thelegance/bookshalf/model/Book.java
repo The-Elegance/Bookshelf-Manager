@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -19,4 +22,14 @@ public class Book {
     String name;
     String description;
     String author;
+
+    public Book(String name, String description, String author) {
+        this.name = name;
+        this.description = description;
+        this.author = author;
+    }
+
+
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, orphanRemoval = false)
+    private Set<Grade> grades = new HashSet<>();
 }

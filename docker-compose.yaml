@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  java-project-db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - java-project-db:/var/lib/postgresql/data
+      - java-project-db:/docker-entrypoint-initdb.d/create_tables.sql
+    networks:
+      - dev
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "12345:8080"
+    networks:
+      - dev
+
+
+volumes:
+  java-project-db:
+    driver: "local"
+networks:
+  dev:
+    driver: bridge

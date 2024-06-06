@@ -78,20 +78,20 @@ public class BookController {
     @DeleteMapping("/books/{bookId}/deleteFromReadBy/me")
     public List<BookResponse> DeleteBookByUserId(@RequestHeader("Authorization") String token,@PathVariable Long bookId) {
 
-        var userId = GetUserForToken(token);
+        var userId = GetUserForToken(token.split(" ")[1]);
         return bookService.DeleteBookFromReadBy(bookId, userId).stream().map(this::ConvertToBookResponse).toList();
     }
 
     //должно быть просто /books/{id}/addBookToishlist, пользователя бек сам должен определиить(по наличию авторизации),
     @PostMapping("/books/{bookId}/addBookToWishlistBy/me")
     public List<BookResponse> addBookToWishlist(@RequestHeader("Authorization") String token, @PathVariable Long bookId) {
-        var userId = GetUserForToken(token);
+        var userId = GetUserForToken(token.split(" ")[1]);
         return bookService.addBookToWishlist(bookId, userId).stream().map(this::ConvertToBookResponse).toList();
     }
 
     @DeleteMapping("/books/{bookId}/addBookToWishlistBy/me")
     public List<BookResponse> deleteBookToWishlist(@RequestHeader("Authorization") String token, @PathVariable Long bookId) {
-        var userId = GetUserForToken(token);
+        var userId = GetUserForToken(token.split(" ")[1]);
         return bookService.deleteBookFromWishlist(bookId, userId).stream().map(this::ConvertToBookResponse).toList();
     }
 

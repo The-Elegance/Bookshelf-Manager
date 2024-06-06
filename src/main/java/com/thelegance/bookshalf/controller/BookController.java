@@ -1,7 +1,10 @@
 package com.thelegance.bookshalf.controller;
 
 import com.thelegance.bookshalf.model.Book;
+import com.thelegance.bookshalf.model.User;
 import com.thelegance.bookshalf.service.BookService;
+import com.thelegance.bookshalf.service.impl.JwtService;
+import com.thelegance.bookshalf.service.impl.UserServiceImpl;
 import dto.BookDto;
 import dto.BookResponse;
 import dto.TypeOrder;
@@ -19,8 +22,12 @@ import java.util.List;
 @SecurityRequirement(name = "JWT")
 public class BookController {
     final BookService bookService;
+    final JwtService jwtService;
+    final UserServiceImpl userService;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, UserServiceImpl userService, JwtService jwtService) {
+        this.userService = userService;
+        this.jwtService = jwtService;
         this.bookService=bookService;
     }
 
@@ -32,7 +39,6 @@ public class BookController {
                                   @RequestParam(required = false) TypeOrder order
 
     ) {
-
         return bookService.getAllBooks(new SearchDto(author,bookName, order)).stream().map(this::ConvertToBookResponse).toList();
     }
 
@@ -63,24 +69,29 @@ public class BookController {
     }
 
     //должно быть просто /books/{id}/read, пользователя бек сам должен определиить(по наличию авторизации),
-    @PostMapping("/books/{bookId}/readBy/{userId}")
-    public List<BookResponse> readBookByUserId(@PathVariable Long bookId, @PathVariable Long userId) {
+    @PostMapping("/books/{bookId}/readBy/me")
+    public List<BookResponse> readBookByUserId(@PathVariable Long bookId, @RequestHeader("Authorization") String token) {
+        var userId = GetUserForToken(token.split(" ")[1]);
         return bookService.readBookBy(bookId, userId).stream().map(this::ConvertToBookResponse).toList();
     }
 
-    @DeleteMapping("/books/{bookId}/deleteFromReadBy/{userId}")
-    public List<BookResponse> DeleteBookByUserId(@PathVariable Long bookId, @PathVariable Long userId) {
+    @DeleteMapping("/books/{bookId}/deleteFromReadBy/me")
+    public List<BookResponse> DeleteBookByUserId(@RequestHeader("Authorization") String token,@PathVariable Long bookId) {
+
+        var userId = GetUserForToken(token);
         return bookService.DeleteBookFromReadBy(bookId, userId).stream().map(this::ConvertToBookResponse).toList();
     }
 
     //должно быть просто /books/{id}/addBookToishlist, пользователя бек сам должен определиить(по наличию авторизации),
-    @PostMapping("/books/{bookId}/addBookToWishlistBy/{userId}")
-    public List<BookResponse> addBookToWishlist(@PathVariable Long bookId, @PathVariable Long userId) {
+    @PostMapping("/books/{bookId}/addBookToWishlistBy/me")
+    public List<BookResponse> addBookToWishlist(@RequestHeader("Authorization") String token, @PathVariable Long bookId) {
+        var userId = GetUserForToken(token);
         return bookService.addBookToWishlist(bookId, userId).stream().map(this::ConvertToBookResponse).toList();
     }
 
-    @DeleteMapping("/books/{bookId}/addBookToWishlistBy/{userId}")
-    public List<BookResponse> deleteBookToWishlist(@PathVariable Long bookId, @PathVariable Long userId) {
+    @DeleteMapping("/books/{bookId}/addBookToWishlistBy/me")
+    public List<BookResponse> deleteBookToWishlist(@RequestHeader("Authorization") String token, @PathVariable Long bookId) {
+        var userId = GetUserForToken(token);
         return bookService.deleteBookFromWishlist(bookId, userId).stream().map(this::ConvertToBookResponse).toList();
     }
 
@@ -88,6 +99,11 @@ public class BookController {
         var grades = book.getGrades().stream().map(Converters::converter).toList();
 
         return new BookResponse(book.getName(), book.getDescription(), book.getAuthor(), grades);
+    }
+
+    private Long GetUserForToken(String Token){
+        var username = jwtService.extractUserName(Token);
+        return userService.findByUsername(username).getId();
     }
 }
 

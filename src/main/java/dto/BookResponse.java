@@ -1,18 +1,19 @@
-package com.thelegance.bookshalf.controller;
+package dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GradeDto{
-    public Long bookId;
-    public Long userId;
-    public Integer rating;
+public class BookResponse{
+    String name;
+    String description;
+    String author;
+    List<GradeResponse> grades;
 }
-
-

@@ -1,4 +1,4 @@
-package com.thelegance.bookshalf.controller;
+package dto;
 
 public enum TypeOrder{
     None,

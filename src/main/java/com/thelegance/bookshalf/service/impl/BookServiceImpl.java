@@ -1,7 +1,7 @@
 package com.thelegance.bookshalf.service.impl;
 
-import com.thelegance.bookshalf.controller.TypeOrder;
-import com.thelegance.bookshalf.controller.searchDto;
+import dto.TypeOrder;
+import dto.searchDto;
 import com.thelegance.bookshalf.model.Book;
 import com.thelegance.bookshalf.model.User;
 import com.thelegance.bookshalf.repository.BookRepository;
@@ -30,14 +30,14 @@ public class BookServiceImpl implements BookService {
     public List<Book> getAllBooks(searchDto searchDto) {
         var enumerable = bookRepository.findAll().stream();
 
-        if(searchDto.bookName != null && !searchDto.bookName.isEmpty())
-            enumerable = enumerable.filter(book -> book.getName().contains(searchDto.bookName));
+        if(searchDto.getBookName() != null && !searchDto.getBookName().isEmpty())
+            enumerable = enumerable.filter(book -> book.getName().contains(searchDto.getBookName()));
 
-        if(searchDto.author != null && !searchDto.author.isEmpty())
-            enumerable = enumerable.filter(book -> book.getAuthor().contains(searchDto.author));
+        if(searchDto.getAuthor() != null && !searchDto.getAuthor().isEmpty())
+            enumerable = enumerable.filter(book -> book.getAuthor().contains(searchDto.getAuthor()));
 
-        if(searchDto.order != null && searchDto.order != TypeOrder.None)
-            enumerable = enumerable.sorted(searchDto.order == TypeOrder.Asc?
+        if(searchDto.getOrder() != null && searchDto.getOrder() != TypeOrder.None)
+            enumerable = enumerable.sorted(searchDto.getOrder() == TypeOrder.Asc?
                     Comparator.comparing(Book::getName)
                     : Comparator.comparing(Book::getName).reversed());
 

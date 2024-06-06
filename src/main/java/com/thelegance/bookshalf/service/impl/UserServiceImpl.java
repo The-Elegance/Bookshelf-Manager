@@ -39,6 +39,12 @@ public class UserServiceImpl implements UserDetailsService {
                 myUser.getPassword(), mapRolesToAuthorities(myUser.getRoles()));
     }
 
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+
     public void addUser(User user) throws Exception
     {
         User userFromDb = userRepository.findByUsername(user.getUsername());
@@ -46,7 +52,6 @@ public class UserServiceImpl implements UserDetailsService {
         {
             throw new Exception("user exist");
         }
-        user.setRoles(Collections.singleton(Role.DEFAULT));
         userRepository.save(user);
     }
 

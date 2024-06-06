@@ -1,5 +1,4 @@
-package com.thelegance.bookshalf.controller;
-
+package dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookDto{
-    String name;
-    String description;
-    String author;
+public class GradeDto{
+    Long bookId;
+    Long userId;
+    Integer rating;
 }
+
+

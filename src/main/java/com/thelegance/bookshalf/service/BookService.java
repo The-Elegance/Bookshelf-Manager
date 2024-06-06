@@ -1,6 +1,6 @@
 package com.thelegance.bookshalf.service;
 
-import com.thelegance.bookshalf.controller.searchDto;
+import dto.searchDto;
 import com.thelegance.bookshalf.model.Book;
 
 import java.util.List;

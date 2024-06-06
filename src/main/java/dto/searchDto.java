@@ -1,4 +1,4 @@
-package com.thelegance.bookshalf.controller;
+package dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
-    String username;
-    String firstName;
-    String lastName;
+public class searchDto{
+    String author;
+    String bookName;
+    TypeOrder order;
 }

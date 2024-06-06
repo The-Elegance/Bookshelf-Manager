@@ -1,7 +1,7 @@
 package com.thelegance.bookshalf.service.impl;
 
 import dto.TypeOrder;
-import dto.searchDto;
+import dto.SearchDto;
 import com.thelegance.bookshalf.model.Book;
 import com.thelegance.bookshalf.model.User;
 import com.thelegance.bookshalf.repository.BookRepository;
@@ -27,7 +27,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getAllBooks(searchDto searchDto) {
+    public List<Book> getAllBooks(SearchDto searchDto) {
         var enumerable = bookRepository.findAll().stream();
 
         if(searchDto.getBookName() != null && !searchDto.getBookName().isEmpty())

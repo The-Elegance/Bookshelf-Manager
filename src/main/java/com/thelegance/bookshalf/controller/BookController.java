@@ -5,7 +5,7 @@ import com.thelegance.bookshalf.service.BookService;
 import dto.BookDto;
 import dto.BookResponse;
 import dto.TypeOrder;
-import dto.searchDto;
+import dto.SearchDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +30,7 @@ public class BookController {
 
     ) {
 
-        return bookService.getAllBooks(new searchDto(author,bookName, order)).stream().map(this::ConvertToBookResponse).toList();
+        return bookService.getAllBooks(new SearchDto(author,bookName, order)).stream().map(this::ConvertToBookResponse).toList();
     }
 
     @PostMapping(value = "/books")
@@ -72,12 +72,12 @@ public class BookController {
 
     //должно быть просто /books/{id}/addBookToishlist, пользователя бек сам должен определиить(по наличию авторизации),
     @PostMapping("/books/{bookId}/addBookToWishlistBy/{userId}")
-    public List<BookResponse> addBookToishlist(@PathVariable Long bookId, @PathVariable Long userId) {
+    public List<BookResponse> addBookToWishlist(@PathVariable Long bookId, @PathVariable Long userId) {
         return bookService.addBookToWishlist(bookId, userId).stream().map(this::ConvertToBookResponse).toList();
     }
 
     @DeleteMapping("/books/{bookId}/addBookToWishlistBy/{userId}")
-    public List<BookResponse> deleteBookToishlist(@PathVariable Long bookId, @PathVariable Long userId) {
+    public List<BookResponse> deleteBookToWishlist(@PathVariable Long bookId, @PathVariable Long userId) {
         return bookService.deleteBookFromWishlist(bookId, userId).stream().map(this::ConvertToBookResponse).toList();
     }
 

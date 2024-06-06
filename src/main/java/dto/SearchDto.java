@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class searchDto{
+public class SearchDto {
     String author;
     String bookName;
     TypeOrder order;

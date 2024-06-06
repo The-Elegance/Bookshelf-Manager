@@ -1,12 +1,12 @@
 package com.thelegance.bookshalf.service;
 
-import dto.searchDto;
+import dto.SearchDto;
 import com.thelegance.bookshalf.model.Book;
 
 import java.util.List;
 
 public interface BookService {
-    List<Book> getAllBooks(searchDto dto);
+    List<Book> getAllBooks(SearchDto dto);
     Book getById(Long id);
     void add(Book book);
     void update(Long id, Book book);

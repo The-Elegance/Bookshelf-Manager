@@ -25,7 +25,6 @@ public class GradeController {
     @ResponseBody
     public List<GradeResponse> getAllGrades()
     {
-
         return gradeService.getAllGrades().stream().map(Converters::converter).toList();
     }
 
